@@ -1,17 +1,24 @@
 <template>
   <div id="app">
-    <!-- Remove any HelloWorld references -->
-    <AllUsers /> <!-- Add this line to use the AllUsers component -->
+    <LoginForm />
+    <AllUsers v-if="hasToken" />
   </div>
 </template>
 
 <script>
-import AllUsers from "@/components/AllUsers.vue"; // Import the AllUsers component
+import LoginForm from "@/components/LoginForm.vue";
+import AllUsers from "@/components/AllUsers.vue";
 
 export default {
   name: "App",
   components: {
-    AllUsers, // Register the AllUsers component for use in the template
+    LoginForm,
+    AllUsers,
+  },
+  computed: {
+    hasToken() {
+      return document.cookie.split(";").some((c) => c.trim().startsWith("token="));
+    },
   },
 };
 </script>
